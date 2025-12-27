@@ -11,7 +11,14 @@ export class PlayerVisual extends BaseComponent {
   compose() {
     this.element.className = 'player-visual';
     this.element.innerHTML = '';
-    this.element.append(this.#buildShapeImage(), this.#buildAccentLayer());
+    this.element.append(this.#buildBaseLayer(), this.#buildAccentLayer());
+  }
+
+  #buildBaseLayer() {
+    const base = document.createElement('div');
+    base.className = 'player-visual-base';
+    base.setAttribute('aria-hidden', 'true');
+    return base;
   }
 
   #buildAccentLayer() {
@@ -19,14 +26,5 @@ export class PlayerVisual extends BaseComponent {
     accent.className = 'player-visual-accent';
     accent.setAttribute('aria-hidden', 'true');
     return accent;
-  }
-
-  #buildShapeImage() {
-    const shape = document.createElement('img');
-    shape.className = 'player-visual-shape';
-    shape.src = this.#assetResolver.buildPath('Polygon 1.svg');
-    shape.alt = 'Силуэт карточки игрока';
-    shape.setAttribute('aria-hidden', 'false');
-    return shape;
   }
 }
