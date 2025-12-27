@@ -207,7 +207,7 @@ body {
 .player-visual-logo {
   position: absolute;
   z-index: 2;
-  bottom: -22px;
+  bottom: -34px;
   left: 50%;
   transform: translateX(-50%);
   width: 72px;
