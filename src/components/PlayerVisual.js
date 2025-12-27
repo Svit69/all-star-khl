@@ -11,7 +11,14 @@ export class PlayerVisual extends BaseComponent {
   compose() {
     this.element.className = 'player-visual';
     this.element.innerHTML = '';
-    this.element.append(this.#buildShapeImage());
+    this.element.append(this.#buildAccentLayer(), this.#buildShapeImage());
+  }
+
+  #buildAccentLayer() {
+    const accent = document.createElement('div');
+    accent.className = 'player-visual-accent';
+    accent.setAttribute('aria-hidden', 'true');
+    return accent;
   }
 
   #buildShapeImage() {
