@@ -5,7 +5,6 @@
   --panel: #121212;
   --search: #1a1a1a;
   --accent: #d11c2e;
-  --hex-clip: path('M50% 0% C56% 0% 61% 2% 66% 5% L92% 20% C96% 22% 100% 28% 100% 34% V66% C100% 72% 96% 78% 92% 80% L66% 95% C61% 98% 56% 100% 50% 100% C44% 100% 39% 98% 34% 95% L8% 80% C4% 78% 0% 72% 0% 66% V34% C0% 28% 4% 22% 8% 20% L34% 5% C39% 2% 44% 0% 50% 0% Z');
 }
 
 * {
@@ -146,53 +145,26 @@ body {
   gap: 12px;
   padding: 12px 8px;
   border-radius: 12px;
+  border: 1px solid #1f1f1f;
+  border-left: 4px solid var(--accent, #d11c2e);
+  background: linear-gradient(145deg, #0f0f0f 0%, #111111 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .player-visual {
   position: relative;
-  width: 132px;
-  height: 164px;
-  overflow: visible;
+  width: 172px;
+  height: 192px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.player-hex-base {
-  position: absolute;
-  inset: 0;
-  background: #ffffff0d;
-  clip-path: var(--hex-clip);
-  border-radius: 18px;
-}
-
-.player-portrait {
-  position: absolute;
-  top: -18px;
-  left: 0;
+.player-visual-shape {
   width: 100%;
-  height: calc(100% + 26px);
-  object-fit: cover;
-  clip-path: var(--hex-clip);
-  border-radius: 18px;
-}
-
-.player-accent-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background: linear-gradient(180deg, var(--accent) 0%, var(--accent) 82%, rgba(0, 0, 0, 0.32) 100%);
-  clip-path: var(--hex-clip);
-  border-radius: 14px;
-}
-
-.player-club-logo {
-  position: absolute;
-  bottom: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 58px;
-  height: 58px;
+  height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.3));
 }
 
 .player-meta {

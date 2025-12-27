@@ -1,11 +1,26 @@
-import { BaseComponent } from '../core/BaseComponent.js';
+﻿import { BaseComponent } from '../core/BaseComponent.js';
+import { PlayerVisual } from './PlayerVisual.js';
+import { PlayerMeta } from './PlayerMeta.js';
 
 export class PlayerCard extends BaseComponent {
-  constructor(player, assetResolver) { super('div'); this.player = player; this.assetResolver = assetResolver; }
-  compose() { const { fullName, position, nation, clubLogo, clubColor } = this.player; this.element.className = 'player-card'; this.element.style.setProperty('--accent', clubColor); this.element.innerHTML = ''; const meta = document.createElement('div'); meta.className = 'player-meta'; meta.append(this.#buildName(fullName), this.#buildDetails(position, nation)); this.element.append(this.#buildVisual(clubLogo), meta); }
-  #buildVisual(clubLogo) { const wrap = document.createElement('div'); wrap.className = 'player-visual'; const base = document.createElement('div'); base.className = 'player-hex-base'; const portrait = document.createElement('img'); portrait.className = 'player-portrait'; portrait.src = this.assetResolver.buildPath('default.png'); portrait.alt = 'Силуэт хоккеиста'; const bar = document.createElement('div'); bar.className = 'player-accent-bar'; const logo = document.createElement('img'); logo.className = 'player-club-logo'; logo.src = this.assetResolver.buildPath(clubLogo); logo.alt = 'Логотип клуба'; wrap.append(base, portrait, bar, logo); return wrap; }
-  #buildName(fullName) { const name = document.createElement('p'); name.className = 'player-name'; name.textContent = fullName; return name; }
-  #buildDetails(position, nation) { const details = document.createElement('div'); details.className = 'player-details'; details.append(this.#makeLabelValue('ПОЗИЦИЯ', position || '—'), this.#makeNationTag(nation || '?')); return details; }
-  #makeLabelValue(label, value) { const wrap = document.createElement('span'); wrap.className = 'player-detail-line'; const labelNode = document.createElement('span'); labelNode.className = 'label'; labelNode.textContent = label; const valueNode = document.createElement('span'); valueNode.textContent = value; wrap.append(labelNode, valueNode); return wrap; }
-  #makeNationTag(value) { const tag = document.createElement('span'); tag.className = 'nation-tag'; const icon = document.createElement('span'); icon.className = 'nation-icon'; icon.textContent = value; const label = document.createElement('span'); label.className = 'nation-label'; label.textContent = 'НАЦИЯ'; tag.append(icon, label); return tag; }
+  #player;
+  #assetResolver;
+
+  constructor(player, assetResolver) {
+    super('div');
+    this.#player = player;
+    this.#assetResolver = assetResolver;
+  }
+
+  compose() {
+    const { fullName, position, nation, clubColor } = this.#player;
+    this.element.className = 'player-card';
+    this.element.style.setProperty('--accent', clubColor);
+    this.element.innerHTML = '';
+
+    const visual = new PlayerVisual(this.#assetResolver).render();
+    const meta = new PlayerMeta(fullName, position, nation).render();
+
+    this.element.append(visual, meta);
+  }
 }

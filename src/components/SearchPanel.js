@@ -1,9 +1,11 @@
-import { BaseComponent } from '../core/BaseComponent.js';
+﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class SearchPanel extends BaseComponent {
+  #placeholderText;
+
   constructor(placeholderText = '') {
     super('div');
-    this.placeholderText = placeholderText;
+    this.#placeholderText = placeholderText;
   }
 
   compose() {
@@ -12,8 +14,8 @@ export class SearchPanel extends BaseComponent {
     const input = document.createElement('input');
     input.type = 'text';
     input.className = 'search-input';
-    input.placeholder = this.placeholderText;
-    input.setAttribute('aria-label', 'Поиск хоккеиста');
+    input.placeholder = this.#placeholderText;
+    input.setAttribute('aria-label', 'Поле поиска игрока или клуба');
     this.element.appendChild(input);
   }
 }

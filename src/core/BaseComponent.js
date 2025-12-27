@@ -1,12 +1,12 @@
-export class BaseComponent {
+﻿export class BaseComponent {
   #element;
 
-  constructor(tagName = 'div') {
+  constructor(tagName = "div") {
     this.#element = document.createElement(tagName);
   }
 
   compose() {
-    throw new Error('Метод compose должен быть переопределен.');
+    throw new Error('Метод compose должен быть переопределен в наследнике.');
   }
 
   render() {
