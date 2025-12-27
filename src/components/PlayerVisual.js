@@ -11,7 +11,7 @@ export class PlayerVisual extends BaseComponent {
   compose() {
     this.element.className = 'player-visual';
     this.element.innerHTML = '';
-    this.element.append(this.#buildAccentLayer(), this.#buildShapeImage());
+    this.element.append(this.#buildShapeImage(), this.#buildAccentLayer());
   }
 
   #buildAccentLayer() {

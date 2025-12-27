@@ -163,7 +163,15 @@ body {
 .player-visual-accent {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 60%, var(--accent, #d11c2e) 60%);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 58%,
+    var(--accent, #d11c2e) 58%,
+    var(--accent, #d11c2e) 100%
+  );
   mask-image: url('../Polygon%201.svg');
   mask-size: contain;
   mask-repeat: no-repeat;
