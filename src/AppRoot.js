@@ -27,29 +27,21 @@ export class AppRoot extends BaseComponent {
     const title = new TitleBlock('Матч всех звёзд КХЛ', 'Выбери клуб и посмотри, как выглядит карточка игрока.').render();
     const suggestions = document.createElement('div');
     suggestions.className = 'search-suggestions';
-    const debugInfo = document.createElement('div');
-    debugInfo.className = 'search-debug';
-    const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions, debugInfo)).render();
+    const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
     const roster = document.createElement('div');
     roster.className = 'roster';
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
-    const rosterCounter = document.createElement('div');
-    rosterCounter.className = 'roster-debug';
-    this.element.append(header, title, search, suggestions, debugInfo, rosterCounter, carousel, roster);
+    this.element.append(header, title, search, suggestions, carousel, roster);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
 
   #refreshRoster(roster, club) {
     roster.innerHTML = '';
     const players = this.#rosterProvider.buildRosterForClub(club.name);
-    const countNode = this.element.querySelector('.roster-debug');
-    if (countNode) {
-      countNode.textContent = `Карточек клуба "${club.name}" ожидается: ${players.length}`;
-    }
     players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
   }
 
-  #handleSearch(value, suggestionsNode, debugNode) {
+  #handleSearch(value, suggestionsNode) {
     const matches = this.searchEngine.search(value, 6);
     suggestionsNode.innerHTML = '';
     if (value.trim().length < 3) return;
@@ -65,28 +57,5 @@ export class AppRoot extends BaseComponent {
       });
       suggestionsNode.appendChild(item);
     });
-
-    const club = this.#controller.getActiveClub();
-    const count = this.#rosterProvider.countParticipantsByClub(club.name);
-    debugNode.textContent = `Клуб ${club.name}: участников в allstar — ${count}`;
-    this.#sendLog({
-      event: 'search_suggestions',
-      club: club.name,
-      query: value,
-      count,
-      sample: matches.slice(0, 3).map((m) => m.displayName)
-    });
-  }
-
-  async #sendLog(payload) {
-    try {
-      await fetch('/api/log', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch (error) {
-      // Логи не критичны для UX, игнорируем ошибки
-    }
   }
 }

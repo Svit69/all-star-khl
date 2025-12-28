@@ -95,18 +95,6 @@ body {
   outline: none;
 }
 
-.search-debug {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.roster-debug {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
 .search-input {
   width: 100%;
   background: var(--search);
