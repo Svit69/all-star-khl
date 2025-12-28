@@ -20,6 +20,7 @@ export class LogoCarousel extends BaseComponent {
     const fadeRight = this.#buildFade('right');
     this.element.append(fadeLeft, track, fadeRight);
     this.#highlightActive(track);
+    this.#enableWheelScroll(track);
   }
 
   #buildItem(club, index, track) {
@@ -50,5 +51,17 @@ export class LogoCarousel extends BaseComponent {
     const fade = document.createElement('div');
     fade.className = `carousel-fade ${position}`;
     return fade;
+  }
+
+  #enableWheelScroll(track) {
+    track.addEventListener(
+      'wheel',
+      (event) => {
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+        event.preventDefault();
+        track.scrollLeft += event.deltaY;
+      },
+      { passive: false }
+    );
   }
 }
