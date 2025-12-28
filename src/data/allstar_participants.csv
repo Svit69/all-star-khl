@@ -1,7 +1,8 @@
-﻿allstar_player_id,khl_player_id,allstar_team,club,photo_file
-as-1001,plr-0001,Запад,СКА,gusev.png
-as-1002,plr-0003,Запад,СКА,lindback.png
-as-1003,plr-0004,Восток,Ак Барс,shipachev.png
-as-1004,plr-0005,Восток,Барыс,dietz.png
-as-1005,plr-0006,Запад,ЦСКА,orlov.png
-as-1006,plr-0007,Восток,Авангард,bobkov.png
+allstar_player_id,khl_player_id,allstar_team,club,photo_file
+as-1001,plr-0001,Урал,Автомобилист,Galkin.png
+as-1002,Plr-0002,Урал,Автомобилист,Blacker.png
+as-1003,plr-0027,Урал,Автомобилист,Denezhkin.png
+as-1004,plr-0010,Урал,Автомобилист,Gorbunov.png
+as-1005,plr-0050,Россия,Авангард,Okulov.png
+as-1006,plr-0041,Россия,Авангард,Sharipzyanov.png
+as-1007,plr-0043,Легионеры,Авангард,Poturalski.png
