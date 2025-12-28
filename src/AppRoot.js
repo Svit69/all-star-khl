@@ -57,5 +57,8 @@ export class AppRoot extends BaseComponent {
       });
       suggestionsNode.appendChild(item);
     });
+
+    const count = this.#rosterProvider.countParticipantsByClub(this.#controller.getActiveClub().name);
+    console.log(`Search debug: club ${this.#controller.getActiveClub().name} has ${count} all-star entries`);
   }
 }

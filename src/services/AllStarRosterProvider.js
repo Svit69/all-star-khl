@@ -59,6 +59,11 @@ export class AllStarRosterProvider {
     });
   }
 
+  countParticipantsByClub(clubName) {
+    const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
+    return (this.#participantsByClub[clubKey] || []).length;
+  }
+
   #composeFullName(player) {
     const first = player.first_name || 'Неизвестный';
     const last = player.last_name || 'Игрок';
