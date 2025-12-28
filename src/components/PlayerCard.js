@@ -19,7 +19,7 @@ export class PlayerCard extends BaseComponent {
     this.element.innerHTML = '';
 
     const visual = new PlayerVisual(this.#assetResolver, clubLogo, photoSrc, isGuessed).render();
-    const meta = new PlayerMeta(fullName, position, nation).render();
+    const meta = new PlayerMeta(fullName, position, nation, isGuessed).render();
 
     this.element.append(visual, meta);
   }

@@ -1,13 +1,14 @@
 ﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class PlayerMeta extends BaseComponent {
-  #fullName; #position; #nation;
+  #fullName; #position; #nation; #isGuessed;
 
-  constructor(fullName, position, nation) {
+  constructor(fullName, position, nation, isGuessed = false) {
     super('div');
     this.#fullName = fullName || 'Неизвестный игрок';
-    this.#position = position || '—';
+    this.#position = position || '-';
     this.#nation = nation || '?';
+    this.#isGuessed = Boolean(isGuessed);
   }
 
   compose() {
@@ -19,7 +20,7 @@ export class PlayerMeta extends BaseComponent {
   #buildName() {
     const name = document.createElement('p');
     name.className = 'player-name';
-    name.textContent = this.#fullName;
+    name.textContent = this.#isGuessed ? this.#fullName : 'Угадай игрока';
     return name;
   }
 

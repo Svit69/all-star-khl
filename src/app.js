@@ -7,8 +7,8 @@ const mountNode = document.getElementById('app');
 
 async function bootstrap() {
   const [players, allstars, guesses] = await Promise.all([
-    CsvDataLoader.load('src/data/khl_players_clean.csv'),
-    CsvDataLoader.load('src/data/allstar_participants_v2.csv'),
+    CsvDataLoader.load('src/data/khl_players_data.csv'),
+    CsvDataLoader.load('src/data/allstar_participants.csv'),
     CsvDataLoader.load('src/data/user_guesses.csv').catch(() => [])
   ]);
   const rosterProvider = new AllStarRosterProvider(allstars, players, clubs, guesses);
