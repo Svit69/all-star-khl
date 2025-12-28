@@ -27,11 +27,13 @@ export class AppRoot extends BaseComponent {
     const title = new TitleBlock('Матч всех звёзд КХЛ', 'Выбери клуб и посмотри, как выглядит карточка игрока.').render();
     const suggestions = document.createElement('div');
     suggestions.className = 'search-suggestions';
-    const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
+    const debugInfo = document.createElement('div');
+    debugInfo.className = 'search-debug';
+    const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions, debugInfo)).render();
     const roster = document.createElement('div');
     roster.className = 'roster';
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
-    this.element.append(header, title, search, suggestions, carousel, roster);
+    this.element.append(header, title, search, suggestions, debugInfo, carousel, roster);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
 
@@ -41,7 +43,7 @@ export class AppRoot extends BaseComponent {
     players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
   }
 
-  #handleSearch(value, suggestionsNode) {
+  #handleSearch(value, suggestionsNode, debugNode) {
     const matches = this.searchEngine.search(value, 6);
     suggestionsNode.innerHTML = '';
     if (value.trim().length < 3) return;
@@ -58,7 +60,8 @@ export class AppRoot extends BaseComponent {
       suggestionsNode.appendChild(item);
     });
 
-    const count = this.#rosterProvider.countParticipantsByClub(this.#controller.getActiveClub().name);
-    console.log(`Search debug: club ${this.#controller.getActiveClub().name} has ${count} all-star entries`);
+    const club = this.#controller.getActiveClub();
+    const count = this.#rosterProvider.countParticipantsByClub(club.name);
+    debugNode.textContent = `Клуб ${club.name}: участников в allstar — ${count}`;
   }
 }

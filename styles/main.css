@@ -95,6 +95,12 @@ body {
   outline: none;
 }
 
+.search-debug {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .search-input {
   width: 100%;
   background: var(--search);
