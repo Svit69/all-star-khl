@@ -5,11 +5,15 @@ export class AllStarRosterProvider {
   #guessedByAllStarId;
   players;
 
+  static #normalizeClub(name = '') {
+    return name.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+  }
+
   constructor(participants, players, clubs, guesses = []) {
     this.#participantsByClub = participants.reduce((acc, participant) => {
-      const club = participant.club || '';
-      if (!acc[club]) acc[club] = [];
-      acc[club].push(participant);
+      const clubKey = AllStarRosterProvider.#normalizeClub(participant.club || '');
+      if (!acc[clubKey]) acc[clubKey] = [];
+      acc[clubKey].push(participant);
       return acc;
     }, {});
     this.#playersById = players.reduce((acc, player) => {
@@ -17,7 +21,8 @@ export class AllStarRosterProvider {
       return acc;
     }, {});
     this.#clubsByName = clubs.reduce((acc, club) => {
-      acc[club.name] = club;
+      const key = AllStarRosterProvider.#normalizeClub(club.name || '');
+      acc[key] = club;
       return acc;
     }, {});
     this.#guessedByAllStarId = guesses.reduce((acc, guess) => {
@@ -28,8 +33,9 @@ export class AllStarRosterProvider {
   }
 
   buildRosterForClub(clubName) {
-    const participants = this.#participantsByClub[clubName] || [];
-    const clubMeta = this.#clubsByName[clubName] || {};
+    const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
+    const participants = this.#participantsByClub[clubKey] || [];
+    const clubMeta = this.#clubsByName[clubKey] || {};
     return participants.map((participant) => {
       const player = this.#playersById[participant.khl_player_id] || {};
       const isGuessed = Boolean(this.#guessedByAllStarId[participant.allstar_player_id]);
