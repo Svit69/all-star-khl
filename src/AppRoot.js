@@ -6,17 +6,16 @@ import { LogoCarousel } from './components/LogoCarousel.js';
 import { PlayerCard } from './components/PlayerCard.js';
 import { ClubCarouselController } from './services/ClubCarouselController.js';
 import { AssetPathResolver } from './services/AssetPathResolver.js';
-import { PlaceholderRosterFactory } from './services/PlaceholderRosterFactory.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterFactory;
+  #clubs; #assetResolver; #controller; #rosterProvider;
 
-  constructor(clubs) {
+  constructor(clubs, rosterProvider) {
     super('div');
     this.#clubs = clubs;
     this.#assetResolver = new AssetPathResolver('');
     this.#controller = new ClubCarouselController(clubs);
-    this.#rosterFactory = new PlaceholderRosterFactory();
+    this.#rosterProvider = rosterProvider;
   }
 
   compose() {
@@ -34,8 +33,7 @@ export class AppRoot extends BaseComponent {
 
   #refreshRoster(roster, club) {
     roster.innerHTML = '';
-    this.#rosterFactory.createForClub(club).forEach((player) =>
-      new PlayerCard(player, this.#assetResolver).mount(roster)
-    );
+    const players = this.#rosterProvider.buildRosterForClub(club.name);
+    players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
   }
 }
