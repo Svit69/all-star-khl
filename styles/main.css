@@ -177,28 +177,22 @@ body {
 
 .player-visual-accent {
   position: absolute;
-  top: 8%;
   left: 0;
   right: 0;
   bottom: 0;
+  height: 40%;
   z-index: 3;
   pointer-events: none;
   opacity: 1;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 58%,
-    var(--accent, #d11c2e) 58%,
-    var(--accent, #d11c2e) 100%
-  );
-  mask-image: url('../Polygon%201.svg');
+  background-color: var(--accent, #d11c2e);
+  mask-image: url('../Intersect.svg');
   mask-size: contain;
   mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-image: url('../Polygon%201.svg');
+  mask-position: bottom center;
+  -webkit-mask-image: url('../Intersect.svg');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  -webkit-mask-position: bottom center;
 }
 
 .player-visual-placeholder {
