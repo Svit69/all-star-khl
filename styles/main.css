@@ -163,6 +163,7 @@ body {
   position: absolute;
   inset: 0;
   background: #b8b8b8;
+  opacity: 1;
   mask-image: url('../Polygon%201.svg');
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -179,6 +180,7 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  opacity: 1;
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -198,8 +200,13 @@ body {
 
 .player-visual-placeholder {
   position: absolute;
-  inset: 0;
+  width: 85%;
+  height: 85%;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
+  opacity: 1;
   object-fit: cover;
   mask-image: url('../Polygon%201.svg');
   mask-size: contain;
