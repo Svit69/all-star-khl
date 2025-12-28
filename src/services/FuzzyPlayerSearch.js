@@ -33,7 +33,8 @@ export class FuzzyPlayerSearch {
     this.#index = players.map((p) => {
       const first = p.first_name || '';
       const last = p.last_name || '';
-      const normalized = normalize(`${last} ${first}`);
+      const lastNorm = p.last_name_normalized || normalize(last);
+      const normalized = normalize(`${lastNorm} ${first}`);
       return {
         id: p.khl_player_id,
         displayName: `${first} ${last}`.trim(),

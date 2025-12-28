@@ -3,8 +3,13 @@ export class CsvDataLoader {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Не удалось загрузить CSV: ${url}`);
     const buffer = await response.arrayBuffer();
-    const decoder = new TextDecoder(encoding);
-    const text = decoder.decode(buffer);
+    let text;
+    try {
+      text = new TextDecoder(encoding).decode(buffer);
+    } catch (error) {
+      console.warn(`TextDecoder ${encoding} не поддерживается, fallback на utf-8`);
+      text = new TextDecoder('utf-8').decode(buffer);
+    }
     return this.#parse(text);
   }
 

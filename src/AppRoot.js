@@ -44,6 +44,7 @@ export class AppRoot extends BaseComponent {
   #handleSearch(value, suggestionsNode) {
     const matches = this.searchEngine.search(value, 6);
     suggestionsNode.innerHTML = '';
+    if (value.trim().length < 3) return;
     if (!matches.length) return;
 
     matches.forEach((match) => {
