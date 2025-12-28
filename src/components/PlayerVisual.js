@@ -3,20 +3,26 @@
 export class PlayerVisual extends BaseComponent {
   #assetResolver;
   #clubLogo;
+  #photoSrc;
+  #isGuessed;
 
-  constructor(assetResolver, clubLogo) {
+  constructor(assetResolver, clubLogo, photoSrc, isGuessed = false) {
     super('div');
     this.#assetResolver = assetResolver;
     this.#clubLogo = clubLogo;
+    this.#photoSrc = photoSrc;
+    this.#isGuessed = Boolean(isGuessed);
   }
 
   compose() {
     this.element.className = 'player-visual';
+    this.element.classList.toggle('guessed', this.#isGuessed);
     this.element.innerHTML = '';
     this.element.append(
       this.#buildBaseLayer(),
       this.#buildAccentLayer(),
       this.#buildPlaceholderLayer(),
+      this.#buildPhotoLayer(),
       this.#buildLogoLayer()
     );
   }
@@ -42,6 +48,15 @@ export class PlayerVisual extends BaseComponent {
     placeholder.alt = 'Силуэт игрока';
     placeholder.loading = 'lazy';
     return placeholder;
+  }
+
+  #buildPhotoLayer() {
+    const photo = document.createElement('img');
+    photo.className = 'player-visual-photo';
+    photo.src = this.#assetResolver.buildPath(this.#photoSrc || 'default.png');
+    photo.alt = 'Фото игрока';
+    photo.loading = 'lazy';
+    return photo;
   }
 
   #buildLogoLayer() {

@@ -13,12 +13,12 @@ export class PlayerCard extends BaseComponent {
   }
 
   compose() {
-    const { fullName, position, nation, clubColor, clubLogo } = this.#player;
+    const { fullName, position, nation, clubColor, clubLogo, photoSrc, isGuessed } = this.#player;
     this.element.className = 'player-card';
     this.element.style.setProperty('--accent', clubColor);
     this.element.innerHTML = '';
 
-    const visual = new PlayerVisual(this.#assetResolver, clubLogo).render();
+    const visual = new PlayerVisual(this.#assetResolver, clubLogo, photoSrc, isGuessed).render();
     const meta = new PlayerMeta(fullName, position, nation).render();
 
     this.element.append(visual, meta);

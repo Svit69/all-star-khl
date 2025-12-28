@@ -2,8 +2,9 @@ export class AllStarRosterProvider {
   #participantsByClub;
   #playersById;
   #clubsByName;
+  #guessedByAllStarId;
 
-  constructor(participants, players, clubs) {
+  constructor(participants, players, clubs, guesses = []) {
     this.#participantsByClub = participants.reduce((acc, participant) => {
       const club = participant.club || '';
       if (!acc[club]) acc[club] = [];
@@ -18,6 +19,10 @@ export class AllStarRosterProvider {
       acc[club.name] = club;
       return acc;
     }, {});
+    this.#guessedByAllStarId = guesses.reduce((acc, guess) => {
+      acc[guess.allstar_player_id] = true;
+      return acc;
+    }, {});
   }
 
   buildRosterForClub(clubName) {
@@ -25,12 +30,15 @@ export class AllStarRosterProvider {
     const clubMeta = this.#clubsByName[clubName] || {};
     return participants.map((participant) => {
       const player = this.#playersById[participant.khl_player_id] || {};
+      const isGuessed = Boolean(this.#guessedByAllStarId[participant.allstar_player_id]);
       return {
         fullName: this.#composeFullName(player),
         position: player.position || '—',
         nation: player.nation || '?',
         clubLogo: clubMeta.logo,
-        clubColor: clubMeta.accent || '#d11c2e'
+        clubColor: clubMeta.accent || '#d11c2e',
+        photoSrc: participant.photo_file ? `photo/${participant.photo_file}` : '',
+        isGuessed
       };
     });
   }
