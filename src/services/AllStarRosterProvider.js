@@ -1,4 +1,4 @@
-export class AllStarRosterProvider {
+﻿export class AllStarRosterProvider {
   #participantsByClub;
   #playersById;
   #clubsByName;
@@ -45,7 +45,7 @@ export class AllStarRosterProvider {
     const participants = this.#participantsByClub[clubKey] || [];
     const clubMeta = this.#clubsByName[clubKey] || {};
     return participants.map((participant) => {
-      const player = this.#playersById[participant.khl_player_id] || {};
+      const player = this.#playersById[AllStarRosterProvider.#normalizeId(participant.khl_player_id)] || {};
       const isGuessed = Boolean(this.#guessedByAllStarId[participant.allstar_player_id]);
       return {
         fullName: this.#composeFullName(player),

@@ -63,5 +63,24 @@ export class AppRoot extends BaseComponent {
     const club = this.#controller.getActiveClub();
     const count = this.#rosterProvider.countParticipantsByClub(club.name);
     debugNode.textContent = `Клуб ${club.name}: участников в allstar — ${count}`;
+    this.#sendLog({
+      event: 'search_suggestions',
+      club: club.name,
+      query: value,
+      count,
+      sample: matches.slice(0, 3).map((m) => m.displayName)
+    });
+  }
+
+  async #sendLog(payload) {
+    try {
+      await fetch('/api/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (error) {
+      // Логи не критичны для UX, игнорируем ошибки
+    }
   }
 }
