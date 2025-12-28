@@ -177,7 +177,7 @@ body {
 
 .player-visual-accent {
   position: absolute;
-  inset: 0;
+  inset: 8% 0 0 0;
   z-index: 3;
   pointer-events: none;
   opacity: 1;
