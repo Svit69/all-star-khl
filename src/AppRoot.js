@@ -33,13 +33,19 @@ export class AppRoot extends BaseComponent {
     const roster = document.createElement('div');
     roster.className = 'roster';
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
-    this.element.append(header, title, search, suggestions, debugInfo, carousel, roster);
+    const rosterCounter = document.createElement('div');
+    rosterCounter.className = 'roster-debug';
+    this.element.append(header, title, search, suggestions, debugInfo, rosterCounter, carousel, roster);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
 
   #refreshRoster(roster, club) {
     roster.innerHTML = '';
     const players = this.#rosterProvider.buildRosterForClub(club.name);
+    const countNode = this.element.querySelector('.roster-debug');
+    if (countNode) {
+      countNode.textContent = `Карточек клуба "${club.name}" ожидается: ${players.length}`;
+    }
     players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
   }
 
