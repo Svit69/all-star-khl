@@ -48,29 +48,34 @@ export class PlayerMeta extends BaseComponent {
     const wrap = document.createElement('span');
     wrap.className = 'player-detail-line';
 
+    const showReal = this.#isGuessed || this.#hintRevealed;
+    if (showReal) {
+      const valueNode = document.createElement('span');
+      valueNode.className = 'position-value revealed';
+      valueNode.textContent = this.#position;
+      wrap.append(valueNode);
+      return wrap;
+    }
+
     const labelNode = document.createElement('span');
     labelNode.className = 'label';
     labelNode.textContent = 'ПОЗИЦИЯ';
 
     const valueNode = document.createElement('span');
     valueNode.className = 'position-value';
-    const showReal = this.#isGuessed || this.#hintRevealed;
-    valueNode.textContent = showReal ? this.#position : '?';
+    valueNode.textContent = '?';
 
     wrap.append(labelNode, valueNode);
 
-    if (!showReal) {
-      const hintButton = document.createElement('button');
-      hintButton.type = 'button';
-      hintButton.className = 'position-hint';
-      hintButton.textContent = '?';
-      hintButton.addEventListener('click', () => {
-        this.#hintRevealed = true;
-        valueNode.textContent = this.#position;
-        hintButton.remove();
-      });
-      wrap.append(hintButton);
-    }
+    const hintButton = document.createElement('button');
+    hintButton.type = 'button';
+    hintButton.className = 'position-hint';
+    hintButton.textContent = '?';
+    hintButton.addEventListener('click', () => {
+      this.#hintRevealed = true;
+      wrap.replaceChildren(this.#buildPositionLine());
+    });
+    wrap.append(hintButton);
 
     return wrap;
   }
