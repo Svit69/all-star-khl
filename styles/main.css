@@ -181,6 +181,7 @@ body {
 
 .player-visual {
   position: relative;
+  flex: 0 0 172px;
   width: 172px;
   height: 192px;
   display: flex;
