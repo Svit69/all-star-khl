@@ -9,9 +9,14 @@ export class AllStarRosterProvider {
     return name.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
   }
 
+  static #normalizeId(id = '') {
+    return (id || '').toLowerCase().trim();
+  }
+
   constructor(participants, players, clubs, guesses = []) {
     this.#playersById = players.reduce((acc, player) => {
-      acc[player.khl_player_id] = player;
+      const key = AllStarRosterProvider.#normalizeId(player.khl_player_id);
+      acc[key] = player;
       return acc;
     }, {});
     this.#clubsByName = clubs.reduce((acc, club) => {
@@ -20,7 +25,8 @@ export class AllStarRosterProvider {
       return acc;
     }, {});
     this.#participantsByClub = participants.reduce((acc, participant) => {
-      const player = this.#playersById[participant.khl_player_id] || {};
+      const playerKey = AllStarRosterProvider.#normalizeId(participant.khl_player_id);
+      const player = this.#playersById[playerKey] || {};
       const clubName = player.club || participant.club || '';
       const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
       if (!acc[clubKey]) acc[clubKey] = [];
