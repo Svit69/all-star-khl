@@ -13,7 +13,12 @@ export class PlayerVisual extends BaseComponent {
   compose() {
     this.element.className = 'player-visual';
     this.element.innerHTML = '';
-    this.element.append(this.#buildBaseLayer(), this.#buildAccentLayer(), this.#buildLogoLayer());
+    this.element.append(
+      this.#buildBaseLayer(),
+      this.#buildAccentLayer(),
+      this.#buildPlaceholderLayer(),
+      this.#buildLogoLayer()
+    );
   }
 
   #buildBaseLayer() {
@@ -28,6 +33,15 @@ export class PlayerVisual extends BaseComponent {
     accent.className = 'player-visual-accent';
     accent.setAttribute('aria-hidden', 'true');
     return accent;
+  }
+
+  #buildPlaceholderLayer() {
+    const placeholder = document.createElement('img');
+    placeholder.className = 'player-visual-placeholder';
+    placeholder.src = this.#assetResolver.buildPath('default.png');
+    placeholder.alt = 'Силуэт игрока';
+    placeholder.loading = 'lazy';
+    return placeholder;
   }
 
   #buildLogoLayer() {
