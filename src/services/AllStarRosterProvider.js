@@ -10,12 +10,6 @@ export class AllStarRosterProvider {
   }
 
   constructor(participants, players, clubs, guesses = []) {
-    this.#participantsByClub = participants.reduce((acc, participant) => {
-      const clubKey = AllStarRosterProvider.#normalizeClub(participant.club || '');
-      if (!acc[clubKey]) acc[clubKey] = [];
-      acc[clubKey].push(participant);
-      return acc;
-    }, {});
     this.#playersById = players.reduce((acc, player) => {
       acc[player.khl_player_id] = player;
       return acc;
@@ -23,6 +17,14 @@ export class AllStarRosterProvider {
     this.#clubsByName = clubs.reduce((acc, club) => {
       const key = AllStarRosterProvider.#normalizeClub(club.name || '');
       acc[key] = club;
+      return acc;
+    }, {});
+    this.#participantsByClub = participants.reduce((acc, participant) => {
+      const player = this.#playersById[participant.khl_player_id] || {};
+      const clubName = player.club || participant.club || '';
+      const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
+      if (!acc[clubKey]) acc[clubKey] = [];
+      acc[clubKey].push(participant);
       return acc;
     }, {});
     this.#guessedByAllStarId = guesses.reduce((acc, guess) => {
