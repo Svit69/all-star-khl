@@ -1,8 +1,10 @@
 export class CsvDataLoader {
-  static async load(url) {
+  static async load(url, encoding = 'utf-8') {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Не удалось загрузить CSV: ${url}`);
-    const text = await response.text();
+    const buffer = await response.arrayBuffer();
+    const decoder = new TextDecoder(encoding);
+    const text = decoder.decode(buffer);
     return this.#parse(text);
   }
 

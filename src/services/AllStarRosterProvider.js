@@ -3,6 +3,7 @@ export class AllStarRosterProvider {
   #playersById;
   #clubsByName;
   #guessedByAllStarId;
+  players;
 
   constructor(participants, players, clubs, guesses = []) {
     this.#participantsByClub = participants.reduce((acc, participant) => {
@@ -23,6 +24,7 @@ export class AllStarRosterProvider {
       acc[guess.allstar_player_id] = true;
       return acc;
     }, {});
+    this.players = players;
   }
 
   buildRosterForClub(clubName) {
