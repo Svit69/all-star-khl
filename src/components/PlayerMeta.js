@@ -1,7 +1,7 @@
 ﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class PlayerMeta extends BaseComponent {
-  #fullName; #position; #nation; #isGuessed;
+  #fullName; #position; #nation; #isGuessed; #hintRevealed = false;
 
   constructor(fullName, position, nation, isGuessed = false) {
     super('div');
@@ -27,20 +27,8 @@ export class PlayerMeta extends BaseComponent {
   #buildDetails() {
     const details = document.createElement('div');
     details.className = 'player-details';
-    details.append(this.#buildLabelValue('ПОЗИЦИЯ', this.#position), this.#buildNationTag());
+    details.append(this.#buildPositionLine(), this.#buildNationTag());
     return details;
-  }
-
-  #buildLabelValue(label, value) {
-    const wrap = document.createElement('span');
-    wrap.className = 'player-detail-line';
-    const labelNode = document.createElement('span');
-    labelNode.className = 'label';
-    labelNode.textContent = label;
-    const valueNode = document.createElement('span');
-    valueNode.textContent = value;
-    wrap.append(labelNode, valueNode);
-    return wrap;
   }
 
   #buildNationTag() {
@@ -54,5 +42,36 @@ export class PlayerMeta extends BaseComponent {
     label.textContent = 'СТРАНА';
     tag.append(icon, label);
     return tag;
+  }
+
+  #buildPositionLine() {
+    const wrap = document.createElement('span');
+    wrap.className = 'player-detail-line';
+
+    const labelNode = document.createElement('span');
+    labelNode.className = 'label';
+    labelNode.textContent = 'ПОЗИЦИЯ';
+
+    const valueNode = document.createElement('span');
+    valueNode.className = 'position-value';
+    const showReal = this.#isGuessed || this.#hintRevealed;
+    valueNode.textContent = showReal ? this.#position : '?';
+
+    wrap.append(labelNode, valueNode);
+
+    if (!showReal) {
+      const hintButton = document.createElement('button');
+      hintButton.type = 'button';
+      hintButton.className = 'position-hint';
+      hintButton.textContent = '?';
+      hintButton.addEventListener('click', () => {
+        this.#hintRevealed = true;
+        valueNode.textContent = this.#position;
+        hintButton.remove();
+      });
+      wrap.append(hintButton);
+    }
+
+    return wrap;
   }
 }

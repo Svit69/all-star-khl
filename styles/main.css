@@ -337,6 +337,21 @@ body {
   font-weight: 500;
 }
 
+.position-hint {
+  background: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.position-hint:hover,
+.position-hint:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
 .nation-tag {
   display: inline-flex;
   align-items: center;

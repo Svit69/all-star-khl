@@ -4,6 +4,7 @@
   #clubsByName;
   #guessedByAllStarId;
   players;
+  participants;
 
   static #normalizeClub(name = '') {
     return name.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
@@ -38,6 +39,7 @@
       return acc;
     }, {});
     this.players = players;
+    this.participants = participants;
   }
 
   buildRosterForClub(clubName) {
@@ -56,6 +58,15 @@
         photoSrc: participant.photo_file ? `photo/${participant.photo_file}` : '',
         isGuessed
       };
+    });
+  }
+
+  markGuessedByPlayerId(khlPlayerId) {
+    const key = AllStarRosterProvider.#normalizeId(khlPlayerId);
+    (this.participants || []).forEach((participant) => {
+      if (AllStarRosterProvider.#normalizeId(participant.khl_player_id) === key) {
+        this.#guessedByAllStarId[participant.allstar_player_id] = true;
+      }
     });
   }
 

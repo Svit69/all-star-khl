@@ -9,7 +9,7 @@ import { AssetPathResolver } from './services/AssetPathResolver.js';
 import { FuzzyPlayerSearch } from './services/FuzzyPlayerSearch.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterProvider;
+  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode;
 
   constructor(clubs, rosterProvider) {
     super('div');
@@ -30,6 +30,7 @@ export class AppRoot extends BaseComponent {
     const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
     const roster = document.createElement('div');
     roster.className = 'roster';
+    this.#rosterNode = roster;
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
     this.element.append(header, title, search, suggestions, carousel, roster);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
@@ -53,6 +54,10 @@ export class AppRoot extends BaseComponent {
       item.type = 'button';
       item.textContent = match.displayName;
       item.addEventListener('click', () => {
+        this.#rosterProvider.markGuessedByPlayerId(match.id);
+        if (this.#rosterNode) {
+          this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
+        }
         suggestionsNode.innerHTML = '';
       });
       suggestionsNode.appendChild(item);
