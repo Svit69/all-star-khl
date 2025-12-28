@@ -129,6 +129,8 @@ body {
   opacity: 0.5;
   transition: opacity 0.2s ease, transform 0.2s ease;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .carousel-item.active {
