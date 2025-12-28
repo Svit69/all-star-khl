@@ -203,15 +203,8 @@ body {
   left: 0;
   z-index: 2;
   opacity: 1;
-  object-fit: cover;
-  mask-image: url('../Polygon%201.svg');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-image: url('../Polygon%201.svg');
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .player-visual-shape {
