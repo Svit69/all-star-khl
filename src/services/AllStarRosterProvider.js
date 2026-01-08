@@ -7,7 +7,14 @@
   participants;
 
   static #normalizeClub(name = '') {
-    return name.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    const normalized = name.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    const aliases = {
+      'шанхайские драконы': 'дрэгонс',
+      'кунлунь ред стар': 'куньлунь',
+      'кунлунь редстар': 'куньлунь',
+      'куньлунь ред стар': 'куньлунь'
+    };
+    return aliases[normalized] || normalized;
   }
 
   static #normalizeId(id = '') {
