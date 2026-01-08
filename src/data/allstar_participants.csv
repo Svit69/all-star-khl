@@ -1,8 +1,55 @@
 allstar_player_id,khl_player_id,allstar_team,club,photo_file
-as-1001,plr-0001,Урал,Автомобилист,Galkin.png
+as-1001,plr-0008,Урал,Автомобилист,Galkin.png
 as-1002,Plr-0002,Урал,Автомобилист,Blacker.png
 as-1003,plr-0027,Урал,Автомобилист,Denezhkin.png
 as-1004,plr-0010,Урал,Автомобилист,Gorbunov.png
-as-1005,plr-0050,Россия,Авангард,Okulov.png
-as-1006,plr-0041,Россия,Авангард,Sharipzyanov.png
+as-1005,Plr-0041,Россия,Авангард,Okulov.png
+as-1006,plr-0050,Россия,Авангард,Sharipzyanov.png
 as-1007,plr-0043,Легионеры,Авангард,Poturalski.png
+as-1008,plr-0081,Россия,Ак Барс,lyamkin.png
+as-1009,plr-0069,Легионеры,Ак Барс,miller.png
+as-1010,plr-0086,Россия,Адмирал,gutik.png
+as-1011,plr-0133,Урал,Металлург,yakovlev.png
+as-1012,plr-0114,Урал,Металлург,kantserov.png
+as-1013,plr-0128,Урал,Металлург,tkachev.png
+as-1014,plr-0126,Урал,Металлург,silantiev.png
+as-1015,plr-0141,Россия,Амур,dorozhko.png
+as-1016,plr-0144,Молодежь,Амур,evseev.png
+as-1017,plr-0167,Россия,Нефтехимик,dolganov.png
+as-1018,plr-0165,Россия,Нефтехимик,belozerov.png
+as-1019,plr-0183,Молодежь,Нефтехимик,tochilkin.png
+as-1020,plr-0216,Легионеры,Барыс,scheel.png
+as-1021,plr-0224,Урал,Трактор,dronov.png
+as-1022,plr-0221,Урал,Трактор,grigorenko.png
+as-1023,plr-0232,Урал,Трактор,leivo.png
+as-1024,plr-0247,Урал,Салават Юлаев,vyazovoy.png
+as-1025,plr-0246,Урал,Салават Юлаев,vasilevski.png
+as-1026,plr-0250,Урал,Салават Юлаев,zharovski.png
+as-1027,plr-0270,Россия,Сибирь,alanov.png
+as-1028,plr-0315,Легионеры,Лада,savchuk.png
+as-1029,plr-0334,Молодежь,СКА,ivanov.png
+as-1030,plr-0348,Россия,СКА,khairullin.png
+as-1031,plr-0537,Молодежь,СКА,korotkiy.png
+as-1032,plr-0371,Легионеры,Динамо Минск,fukale.png
+as-1033,plr-0362,Молодежь,Динамо Минск,moroz.png
+as-1034,plr-0363,Легионеры,Динамо Минск,pinchuk.png
+as-1035,plr-0375,Легионеры,Динамо Минск,anas.png
+as-1036,plr-0391,Молодежь,Спартак,orlov.png
+as-1037,plr-0383,Легионеры,Спартак,kean.png
+as-1038,plr-0396,Легионеры,Спартак,ruzichka.png
+as-1039,plr-0412,Легионеры,Шанхайские Драконы,cleandening.png
+as-1040,plr-0415,Легионеры,Шанхайские Драконы,labank.png
+as-1041,plr-0456,Россия,Сочи,seroukh.png
+as-1042,plr-0476,Россия,Локомотив,radulov.png
+as-1043,plr-0484,Молодежь,Локомотив,surin.png
+as-1044,plr-0464,Россия,Локомотив,loko_ivanov.png
+as-1045,plr-0486,Молодежь,ЦСКА,gamzin.png
+as-1046,plr-0501,Молодежь,ЦСКА,poltapov.png
+as-1047,plr-0506,Легионеры,ЦСКА,sprong.png
+as-1048,plr-0527,Россия,Динамо Москва,pylenkov.png
+as-1049,plr-0519,Легионеры,Динамо Москва,comtois.png
+as-1050,plr-0551,Легионеры,Северсталь,kaldis.png
+as-1051,plr-0539,Россия,Северсталь,aimurzin.png
+as-1052,plr-0550,Молодежь,Северсталь,ilyin.png
+as-1053,plr-0586,Молодежь,Торпедо,silayev.png
+as-1054,plr-0571,Молодежь,Торпедо,vinogradov.png
