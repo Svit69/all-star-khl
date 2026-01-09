@@ -184,15 +184,15 @@ body {
   flex: 0 0 124px;
   width: 124px;
   height: 138px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 
 .player-visual-default {
-  position: absolute;
-  inset: 0;
   z-index: 1;
+  width: 100%;
+  height: 100%;
+  grid-area: 1 / 1;
   object-fit: contain;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
   -webkit-user-drag: none;
@@ -200,12 +200,10 @@ body {
 }
 
 .player-visual-photo {
-  position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
   z-index: 2;
+  grid-area: 1 / 1;
   opacity: 0;
   object-fit: contain;
   transition: opacity 0.2s ease;
