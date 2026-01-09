@@ -33,6 +33,7 @@ export class PlayerVisual extends BaseComponent {
     base.src = this.#assetResolver.buildPath(this.#defaultVisualSrc || 'default.png');
     base.alt = 'Карточка клуба';
     base.loading = 'lazy';
+    base.draggable = false;
     return base;
   }
 
@@ -42,6 +43,7 @@ export class PlayerVisual extends BaseComponent {
     photo.src = this.#assetResolver.buildPath(this.#photoSrc || 'default.png');
     photo.alt = 'Фото игрока';
     photo.loading = 'lazy';
+    photo.draggable = false;
     return photo;
   }
 
@@ -51,6 +53,7 @@ export class PlayerVisual extends BaseComponent {
     logo.src = this.#assetResolver.buildPath(this.#clubLogo);
     logo.alt = 'Логотип клуба на карточке';
     logo.loading = 'lazy';
+    logo.draggable = false;
     return logo;
   }
 }

@@ -181,9 +181,9 @@ body {
 
 .player-visual {
   position: relative;
-  flex: 0 0 146px;
-  width: 146px;
-  height: 163px;
+  flex: 0 0 124px;
+  width: 124px;
+  height: 138px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,6 +195,8 @@ body {
   z-index: 1;
   object-fit: contain;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .player-visual-photo {
@@ -207,18 +209,22 @@ body {
   opacity: 0;
   object-fit: contain;
   transition: opacity 0.2s ease;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .player-visual-logo {
   position: absolute;
   z-index: 3;
-  bottom: -34px;
+  bottom: -24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* Показ фото при угаданном игроке */
@@ -228,13 +234,13 @@ body {
 
 @media (max-width: 520px) {
   .player-visual {
-    width: 129px;
-    height: 145px;
+    width: 112px;
+    height: 124px;
   }
   .player-visual-logo {
-    width: 64px;
-    height: 64px;
-    bottom: -18px;
+    width: 50px;
+    height: 50px;
+    bottom: -16px;
   }
 }
 
