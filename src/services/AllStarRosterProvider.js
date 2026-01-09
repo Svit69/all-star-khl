@@ -46,6 +46,38 @@
     return map[key] || 'default.png';
   }
 
+  static #flagByNation(nation = '') {
+    const key = nation.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    const map = {
+      'россия': 'flags/icon-russia.png',
+      'казахстан': 'flags/icon-kazakhstan.png',
+      'беларусь': 'flags/icon-belarus.png',
+      'сша': 'flags/icon-usa.png',
+      'канада': 'flags/icon-canada.png',
+      'финляндия': 'flags/icon-finland.png',
+      'швеция': 'flags/icon-sweden.png',
+      'словакия': 'flags/icon-slovakia.png',
+      'словения': 'flags/icon-slovenia.png',
+      'чехия': 'flags/icon-czech.png',
+      'германия': 'flags/icon-germany.png',
+      'франция': 'flags/icon-france.png',
+      'хорватия': 'flags/icon-croatia.png',
+      'китай': 'flags/icon-china.png'
+    };
+    return map[key] || '';
+  }
+
+  static #allStarTeamLogo(team = '') {
+    const key = team.toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    const map = {
+      'урал': 'ural.svg',
+      'россия': 'rus.svg',
+      'легионеры': 'world.svg',
+      'молодежь': 'u23.svg'
+    };
+    return map[key] || '';
+  }
+
   static #normalizeId(id = '') {
     return (id || '').toLowerCase().trim();
   }
@@ -90,6 +122,9 @@
         fullName: this.#composeFullName(player),
         position: player.position || '—',
         nation: player.nation || '?',
+        nationFlagSrc: AllStarRosterProvider.#flagByNation(player.nation || ''),
+        allstarTeam: participant.allstar_team || '',
+        allstarTeamLogoSrc: AllStarRosterProvider.#allStarTeamLogo(participant.allstar_team || ''),
         clubLogo: clubMeta.logo,
         clubColor: clubMeta.accent || '#d11c2e',
         defaultVisualSrc,

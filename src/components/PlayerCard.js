@@ -13,13 +13,22 @@ export class PlayerCard extends BaseComponent {
   }
 
   compose() {
-    const { fullName, position, nation, clubColor, clubLogo, photoSrc, isGuessed, defaultVisualSrc } = this.#player;
+    const { fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, clubColor, clubLogo, photoSrc, isGuessed, defaultVisualSrc } = this.#player;
     this.element.className = 'player-card';
     this.element.style.setProperty('--accent', clubColor);
     this.element.innerHTML = '';
 
     const visual = new PlayerVisual(this.#assetResolver, clubLogo, photoSrc, isGuessed, defaultVisualSrc).render();
-    const meta = new PlayerMeta(fullName, position, nation, isGuessed).render();
+    const meta = new PlayerMeta(
+      fullName,
+      position,
+      nation,
+      allstarTeam,
+      nationFlagSrc,
+      allstarTeamLogoSrc,
+      isGuessed,
+      this.#assetResolver
+    ).render();
 
     this.element.append(visual, meta);
   }
