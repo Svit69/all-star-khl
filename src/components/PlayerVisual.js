@@ -5,13 +5,15 @@ export class PlayerVisual extends BaseComponent {
   #clubLogo;
   #photoSrc;
   #isGuessed;
+  #defaultVisualSrc;
 
-  constructor(assetResolver, clubLogo, photoSrc, isGuessed = false) {
+  constructor(assetResolver, clubLogo, photoSrc, isGuessed = false, defaultVisualSrc = 'default.png') {
     super('div');
     this.#assetResolver = assetResolver;
     this.#clubLogo = clubLogo;
     this.#photoSrc = photoSrc;
     this.#isGuessed = Boolean(isGuessed);
+    this.#defaultVisualSrc = defaultVisualSrc;
   }
 
   compose() {
@@ -19,35 +21,19 @@ export class PlayerVisual extends BaseComponent {
     this.element.classList.toggle('guessed', this.#isGuessed);
     this.element.innerHTML = '';
     this.element.append(
-      this.#buildBaseLayer(),
-      this.#buildAccentLayer(),
-      this.#buildPlaceholderLayer(),
+      this.#buildDefaultLayer(),
       this.#buildPhotoLayer(),
       this.#buildLogoLayer()
     );
   }
 
-  #buildBaseLayer() {
-    const base = document.createElement('div');
-    base.className = 'player-visual-base';
-    base.setAttribute('aria-hidden', 'true');
+  #buildDefaultLayer() {
+    const base = document.createElement('img');
+    base.className = 'player-visual-default';
+    base.src = this.#assetResolver.buildPath(this.#defaultVisualSrc || 'default.png');
+    base.alt = 'Карточка клуба';
+    base.loading = 'lazy';
     return base;
-  }
-
-  #buildAccentLayer() {
-    const accent = document.createElement('div');
-    accent.className = 'player-visual-accent';
-    accent.setAttribute('aria-hidden', 'true');
-    return accent;
-  }
-
-  #buildPlaceholderLayer() {
-    const placeholder = document.createElement('img');
-    placeholder.className = 'player-visual-placeholder';
-    placeholder.src = this.#assetResolver.buildPath('default.png');
-    placeholder.alt = 'Силуэт игрока';
-    placeholder.loading = 'lazy';
-    return placeholder;
   }
 
   #buildPhotoLayer() {

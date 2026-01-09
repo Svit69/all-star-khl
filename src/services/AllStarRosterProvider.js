@@ -17,6 +17,35 @@
     return aliases[normalized] || normalized;
   }
 
+  static #defaultVisualByClub(clubName) {
+    const key = AllStarRosterProvider.#normalizeClub(clubName);
+    const map = {
+      'авангард': 'avangard_default.png',
+      'автомобилист': 'avtomobilist_default.png',
+      'адмирал': 'admiral_default.png',
+      'ак барс': 'ак_bars_default.png',
+      'амур': 'amur_default.png',
+      'барыс': 'barys_default.png',
+      'дрэгонс': 'dragons_default.png',
+      'динамо минск': 'minsk_default.png',
+      'динамо москва': 'dynamo_default.png',
+      'лада': 'lada_default.png',
+      'локомотив': 'lokomotiv_default.png',
+      'металлург': 'metallurg_default.png',
+      'нефтехимик': 'neftekhimik_default.png',
+      'салават юлаев': 'salavat_default.png',
+      'северсталь': 'severstal_default.png',
+      'сибирь': 'sibir_default.png',
+      'ска': 'ska_default.png',
+      'сочи': 'sochi_default.png',
+      'спартак': 'spartak_default.png',
+      'торпедо': 'torpedo_default.png',
+      'трактор': 'traktor_default.png',
+      'цска': 'cska_default.png'
+    };
+    return map[key] || 'default.png';
+  }
+
   static #normalizeId(id = '') {
     return (id || '').toLowerCase().trim();
   }
@@ -56,12 +85,14 @@
     return participants.map((participant) => {
       const player = this.#playersById[AllStarRosterProvider.#normalizeId(participant.khl_player_id)] || {};
       const isGuessed = Boolean(this.#guessedByAllStarId[participant.allstar_player_id]);
+      const defaultVisualSrc = AllStarRosterProvider.#defaultVisualByClub(clubName);
       return {
         fullName: this.#composeFullName(player),
         position: player.position || '—',
         nation: player.nation || '?',
         clubLogo: clubMeta.logo,
         clubColor: clubMeta.accent || '#d11c2e',
+        defaultVisualSrc,
         photoSrc: participant.photo_file ? `photo/${participant.photo_file}` : '',
         isGuessed
       };
