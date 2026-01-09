@@ -108,6 +108,15 @@
     });
   }
 
+  isPlayerInClub(khlPlayerId, clubName) {
+    const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
+    const participants = this.#participantsByClub[clubKey] || [];
+    const targetId = AllStarRosterProvider.#normalizeId(khlPlayerId);
+    return participants.some(
+      (participant) => AllStarRosterProvider.#normalizeId(participant.khl_player_id) === targetId
+    );
+  }
+
   countParticipantsByClub(clubName) {
     const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
     return (this.#participantsByClub[clubKey] || []).length;

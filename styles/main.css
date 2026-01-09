@@ -16,6 +16,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
 #app {
@@ -197,6 +198,7 @@ body {
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
   -webkit-user-drag: none;
   user-select: none;
+  transition: opacity 0.2s ease;
 }
 
 .player-visual-photo {
@@ -228,6 +230,40 @@ body {
 /* Показ фото при угаданном игроке */
 .player-visual.guessed .player-visual-photo {
   opacity: 1;
+}
+
+.player-visual.guessed .player-visual-default {
+  opacity: 0;
+}
+
+.answer-feedback {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  border: 2px solid transparent;
+  opacity: 0;
+  z-index: 50;
+}
+
+.answer-feedback.correct {
+  border-color: #32d26e;
+  box-shadow: inset 0 0 18px rgba(50, 210, 110, 0.45);
+}
+
+.answer-feedback.incorrect {
+  border-color: #ff4d4d;
+  box-shadow: inset 0 0 18px rgba(255, 77, 77, 0.5);
+}
+
+.answer-feedback.show {
+  animation: feedbackPulse 1.6s ease-in-out forwards;
+}
+
+@keyframes feedbackPulse {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @media (max-width: 520px) {

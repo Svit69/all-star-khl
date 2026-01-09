@@ -9,7 +9,7 @@ import { AssetPathResolver } from './services/AssetPathResolver.js';
 import { FuzzyPlayerSearch } from './services/FuzzyPlayerSearch.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode;
+  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer;
 
   constructor(clubs, rosterProvider) {
     super('div');
@@ -28,11 +28,14 @@ export class AppRoot extends BaseComponent {
     const suggestions = document.createElement('div');
     suggestions.className = 'search-suggestions';
     const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
+    const feedback = document.createElement('div');
+    feedback.className = 'answer-feedback';
     const roster = document.createElement('div');
     roster.className = 'roster';
     this.#rosterNode = roster;
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
     this.element.append(header, title, search, suggestions, carousel, roster);
+    document.body.appendChild(feedback);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
 
@@ -54,13 +57,27 @@ export class AppRoot extends BaseComponent {
       item.type = 'button';
       item.textContent = match.displayName;
       item.addEventListener('click', () => {
-        this.#rosterProvider.markGuessedByPlayerId(match.id);
-        if (this.#rosterNode) {
-          this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
-        }
+        const club = this.#controller.getActiveClub();
+        const isCorrect = this.#rosterProvider.isPlayerInClub(match.id, club.name);
+        if (isCorrect) this.#rosterProvider.markGuessedByPlayerId(match.id);
+        this.#showAnswerFeedback(isCorrect);
+        if (this.#rosterNode) this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
         suggestionsNode.innerHTML = '';
       });
       suggestionsNode.appendChild(item);
     });
+  }
+
+  #showAnswerFeedback(isCorrect) {
+    const feedback = document.querySelector('.answer-feedback');
+    if (!feedback) return;
+    feedback.classList.remove('show', 'correct', 'incorrect');
+    feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+    void feedback.offsetWidth;
+    feedback.classList.add('show');
+    window.clearTimeout(this.#feedbackTimer);
+    this.#feedbackTimer = window.setTimeout(() => {
+      feedback.classList.remove('show', 'correct', 'incorrect');
+    }, 1600);
   }
 }
