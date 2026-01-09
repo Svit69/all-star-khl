@@ -24,7 +24,10 @@ export class AppRoot extends BaseComponent {
     this.element.id = 'app-shell';
     this.element.innerHTML = '';
     const header = new HeaderLogos(this.#assetResolver.buildPath('roganov_logo.png'), this.#assetResolver.buildPath('khl_logo.png')).render();
-    const title = new TitleBlock('Матч всех звёзд КХЛ', 'Выбери клуб и посмотри, как выглядит карточка игрока.').render();
+    const title = new TitleBlock('УГАДАЙ, КТО', 'поедет на Матч Звезд КХЛ 2026').render();
+    const progress = document.createElement('div');
+    progress.className = 'guess-progress';
+    progress.textContent = this.#buildGuessProgressLabel();
     const suggestions = document.createElement('div');
     suggestions.className = 'search-suggestions';
     const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
@@ -34,7 +37,7 @@ export class AppRoot extends BaseComponent {
     roster.className = 'roster';
     this.#rosterNode = roster;
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
-    this.element.append(header, title, search, suggestions, carousel, roster);
+    this.element.append(header, title, progress, search, suggestions, carousel, roster);
     document.body.appendChild(feedback);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
@@ -43,6 +46,8 @@ export class AppRoot extends BaseComponent {
     roster.innerHTML = '';
     const players = this.#rosterProvider.buildRosterForClub(club.name);
     players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
+    const progress = this.element.querySelector('.guess-progress');
+    if (progress) progress.textContent = this.#buildGuessProgressLabel();
   }
 
   #handleSearch(value, suggestionsNode) {
@@ -79,5 +84,11 @@ export class AppRoot extends BaseComponent {
     this.#feedbackTimer = window.setTimeout(() => {
       feedback.classList.remove('show', 'correct', 'incorrect');
     }, 1600);
+  }
+
+  #buildGuessProgressLabel() {
+    const total = this.#rosterProvider.participants ? this.#rosterProvider.participants.length : 0;
+    const guessed = this.#rosterProvider.countGuessedParticipants ? this.#rosterProvider.countGuessedParticipants() : 0;
+    return `${guessed}/${total}`;
   }
 }

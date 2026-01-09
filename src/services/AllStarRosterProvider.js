@@ -152,6 +152,10 @@
     );
   }
 
+  countGuessedParticipants() {
+    return Object.keys(this.#guessedByAllStarId || {}).length;
+  }
+
   countParticipantsByClub(clubName) {
     const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
     return (this.#participantsByClub[clubKey] || []).length;
