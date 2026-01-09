@@ -61,11 +61,7 @@ export class PlayerMeta extends BaseComponent {
     labelNode.className = 'label';
     labelNode.textContent = 'ПОЗИЦИЯ';
 
-    const valueNode = document.createElement('span');
-    valueNode.className = 'position-value';
-    valueNode.textContent = '?';
-
-    wrap.append(labelNode, valueNode);
+    wrap.append(labelNode);
 
     const hintButton = document.createElement('button');
     hintButton.type = 'button';
