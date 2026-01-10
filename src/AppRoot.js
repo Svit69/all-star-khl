@@ -7,9 +7,11 @@ import { PlayerCard } from './components/PlayerCard.js';
 import { ClubCarouselController } from './services/ClubCarouselController.js';
 import { AssetPathResolver } from './services/AssetPathResolver.js';
 import { FuzzyPlayerSearch } from './services/FuzzyPlayerSearch.js';
+import { TutorialController } from './services/TutorialController.js';
+import { buildTutorialSteps } from './services/TutorialSteps.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer; #carouselHost;
+  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer; #carouselHost; #tutorial;
 
   constructor(clubs, rosterProvider) {
     super('div');
@@ -46,6 +48,11 @@ export class AppRoot extends BaseComponent {
     this.element.append(patternArea, roster);
     document.body.appendChild(feedback);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
+    if (!this.#tutorial) {
+      this.#tutorial = new TutorialController(buildTutorialSteps());
+      this.#tutorial.mount(document.body);
+    }
+    this.#tutorial.start();
   }
 
   #refreshRoster(roster, club) {

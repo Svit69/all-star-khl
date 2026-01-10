@@ -325,6 +325,85 @@ svg {
   100% { opacity: 0; }
 }
 
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  pointer-events: none;
+}
+
+.tutorial-overlay.active {
+  display: block;
+}
+
+.tutorial-spotlight {
+  position: absolute;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.78);
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+.tutorial-tooltip {
+  position: absolute;
+  width: 264px;
+  padding: 14px 14px 12px;
+  background: #141414;
+  border: 1px solid #272727;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+}
+
+.tutorial-tooltip h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.tutorial-tooltip p {
+  margin: 0 0 8px;
+  color: #d4d4d4;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tutorial-step {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.tutorial-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.tutorial-next,
+.tutorial-skip {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #2b2b2b;
+  background: #1b1b1b;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.tutorial-next {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.tutorial-next:hover,
+.tutorial-next:focus-visible,
+.tutorial-skip:hover,
+.tutorial-skip:focus-visible {
+  outline: none;
+  border-color: #ffffff;
+}
+
 @media (max-width: 520px) {
   .player-visual {
     width: 112px;

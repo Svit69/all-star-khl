@@ -1,0 +1,22 @@
+export const buildTutorialOverlayLayout = () => {
+  const spotlight = document.createElement('div');
+  spotlight.className = 'tutorial-spotlight';
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tutorial-tooltip';
+  const title = document.createElement('h3');
+  const body = document.createElement('p');
+  const step = document.createElement('div');
+  step.className = 'tutorial-step';
+  const actions = document.createElement('div');
+  actions.className = 'tutorial-actions';
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'tutorial-next';
+  const skip = document.createElement('button');
+  skip.type = 'button';
+  skip.className = 'tutorial-skip';
+  skip.textContent = 'Пропустить';
+  actions.append(next, skip);
+  tooltip.append(title, body, step, actions);
+  return { spotlight, tooltip, title, body, step, next, skip };
+};
