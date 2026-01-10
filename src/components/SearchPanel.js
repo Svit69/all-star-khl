@@ -17,10 +17,16 @@ export class SearchPanel extends BaseComponent {
     input.className = 'search-input';
     input.placeholder = this.#placeholderText;
     input.setAttribute('aria-label', 'Поле поиска игрока или клуба');
+    const updateHasValue = () => {
+      this.element.classList.toggle('has-value', input.value.trim().length > 0);
+    };
+    updateHasValue();
     input.addEventListener('input', (event) => {
-      this.element.classList.toggle('has-value', event.target.value.trim().length > 0);
+      updateHasValue();
       if (this.#onInput) this.#onInput(event.target.value);
     });
+    input.addEventListener('change', updateHasValue);
+    input.addEventListener('blur', updateHasValue);
     this.element.appendChild(input);
   }
 }
