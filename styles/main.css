@@ -420,6 +420,82 @@ svg {
   }
 }
 
+@media (max-width: 430px) {
+  #app {
+    padding: 18px 14px 40px;
+  }
+  .title-block h1 {
+    font-size: 30px;
+  }
+  .title-block p {
+    font-size: 14px;
+  }
+  .guess-progress {
+    font-size: 15px;
+  }
+  .search-input {
+    font-size: 14px;
+  }
+  .carousel-track {
+    padding: 6px 28px;
+    gap: 12px;
+  }
+  .carousel-item img {
+    height: 44px;
+    width: 44px;
+  }
+  .player-card {
+    gap: 10px;
+    padding: 10px 6px;
+  }
+  .player-visual {
+    width: 106px;
+    height: 118px;
+  }
+  .player-name {
+    font-size: 20px;
+  }
+  .player-details {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  #app {
+    padding: 16px 12px 36px;
+  }
+  .title-block {
+    margin: 20px 0 10px;
+  }
+  .title-block h1 {
+    font-size: 26px;
+  }
+  .title-block p {
+    font-size: 13px;
+  }
+  .guess-progress {
+    font-size: 14px;
+  }
+  .carousel-track {
+    padding: 6px 24px;
+    gap: 10px;
+  }
+  .carousel-item img {
+    height: 40px;
+    width: 40px;
+  }
+  .player-visual {
+    width: 98px;
+    height: 110px;
+  }
+  .player-name {
+    font-size: 18px;
+  }
+  .player-details {
+    font-size: 11px;
+  }
+}
+
 .player-meta {
   transform: translateY(2px);
 }
