@@ -35,11 +35,6 @@ export class AppRoot extends BaseComponent {
     feedback.className = 'answer-feedback';
     const pattern = document.createElement('div');
     pattern.className = 'pattern-grid';
-    for (let i = 0; i < 9; i += 1) {
-      const cell = document.createElement('span');
-      cell.className = 'pattern-cell';
-      pattern.appendChild(cell);
-    }
     const roster = document.createElement('div');
     roster.className = 'roster';
     this.#rosterNode = roster;

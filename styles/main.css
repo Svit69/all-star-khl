@@ -71,22 +71,13 @@ body {
 }
 
 .pattern-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin: 10px 0 12px;
-}
-
-.pattern-grid > .pattern-cell {
   width: 100%;
-  padding-top: 100%;
+  aspect-ratio: 3 / 3;
+  margin: 10px 0 12px;
   background-image: url('../khl_all_star_pattern.svg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
+  background-size: calc(100% / 3) calc(100% / 3);
   background-position: center;
-  background-size: contain;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-    0 6px 14px rgba(0, 0, 0, 0.25);
 }
 
 .search-panel {
