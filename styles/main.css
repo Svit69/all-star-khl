@@ -139,8 +139,7 @@ svg {
   font-size: 15px;
 }
 
-.search-panel::after {
-  content: '|';
+.input-caret {
   position: absolute;
   left: 24px;
   top: 50%;
@@ -151,8 +150,8 @@ svg {
   pointer-events: none;
 }
 
-.search-panel:focus-within::after,
-.search-panel.has-value::after {
+.search-input:focus + .input-caret,
+.search-input:not(:placeholder-shown) + .input-caret {
   opacity: 0;
 }
 
