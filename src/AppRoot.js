@@ -29,6 +29,7 @@ export class AppRoot extends BaseComponent {
   compose() {
     this.element.id = 'app-shell';
     this.element.innerHTML = '';
+    this.#preloadNotificationAssets();
     const header = new HeaderLogos(this.#assetResolver.buildPath('roganov_logo.png'), this.#assetResolver.buildPath('khl_logo.png')).render();
     const title = new TitleBlock('УГАДАЙ, КТО', 'поедет на Матч Звезд КХЛ 2026').render();
     const progress = document.createElement('div');
@@ -110,6 +111,11 @@ export class AppRoot extends BaseComponent {
       name: 'Андрей Разин',
       message: 'Подсказка не должна\nрожать ответ за тебя.\nОна должна только помочь.'
     });
+  }
+
+  #preloadNotificationAssets() {
+    const image = new Image();
+    image.src = this.#assetResolver.buildPath('razin.png');
   }
 
   #reorderCompletedClubs() {
