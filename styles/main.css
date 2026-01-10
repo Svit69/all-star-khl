@@ -408,6 +408,58 @@ svg {
   border-color: #ffffff;
 }
 
+.coach-notification {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  width: min(360px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 18, 0.72);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 70;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.coach-notification.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.coach-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.coach-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.coach-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.coach-message {
+  font-size: 13px;
+  color: #d6d6d6;
+  white-space: pre-line;
+  line-height: 1.3;
+}
+
 @media (max-width: 520px) {
   .player-visual {
     width: 112px;

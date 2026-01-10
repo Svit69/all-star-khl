@@ -1,13 +1,15 @@
 ﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class PlayerAllStarLine extends BaseComponent {
-  #team; #logoSrc; #isGuessed; #hintRevealed = false; #assetResolver;
-  constructor(team, logoSrc, isGuessed = false, assetResolver) {
+  #team; #logoSrc; #isGuessed; #hintRevealed = false; #assetResolver; #playerId; #onHintUsed;
+  constructor(team, logoSrc, isGuessed = false, assetResolver, playerId = null, onHintUsed = null) {
     super('span');
-    this.#team = team || '—';
+    this.#team = team || '-';
     this.#logoSrc = logoSrc || '';
     this.#isGuessed = Boolean(isGuessed);
     this.#assetResolver = assetResolver;
+    this.#playerId = playerId;
+    this.#onHintUsed = onHintUsed;
   }
   compose() {
     this.element.className = 'player-detail-line';
@@ -26,6 +28,7 @@ export class PlayerAllStarLine extends BaseComponent {
     label.textContent = 'КОМАНДА МЗ';
     const hint = this.#buildHintButton(() => {
       this.#hintRevealed = true;
+      if (this.#onHintUsed) this.#onHintUsed(this.#playerId);
       this.compose();
     });
     this.element.append(label, hint);

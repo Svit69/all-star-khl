@@ -119,8 +119,9 @@
       const isGuessed = Boolean(this.#guessedByAllStarId[participant.allstar_player_id]);
       const defaultVisualSrc = AllStarRosterProvider.#defaultVisualByClub(clubName);
       return {
+        khlPlayerId: participant.khl_player_id,
         fullName: this.#composeFullName(player),
-        position: player.position || '—',
+        position: player.position || '-',
         nation: player.nation || '?',
         nationFlagSrc: AllStarRosterProvider.#flagByNation(player.nation || ''),
         allstarTeam: participant.allstar_team || '',

@@ -9,9 +9,11 @@ import { AssetPathResolver } from './services/AssetPathResolver.js';
 import { FuzzyPlayerSearch } from './services/FuzzyPlayerSearch.js';
 import { TutorialController } from './services/TutorialController.js';
 import { buildTutorialSteps } from './services/TutorialSteps.js';
+import { HintUsageTracker } from './services/HintUsageTracker.js';
+import { CoachNotificationService } from './services/CoachNotificationService.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer; #carouselHost; #tutorial;
+  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer; #carouselHost; #tutorial; #hintTracker; #coachNotifications;
 
   constructor(clubs, rosterProvider) {
     super('div');
@@ -20,6 +22,8 @@ export class AppRoot extends BaseComponent {
     this.#controller = new ClubCarouselController(clubs);
     this.#rosterProvider = rosterProvider;
     this.searchEngine = new FuzzyPlayerSearch(rosterProvider.players || []);
+    this.#coachNotifications = new CoachNotificationService();
+    this.#hintTracker = new HintUsageTracker(10, () => this.#notifyHintsThreshold());
   }
 
   compose() {
@@ -53,12 +57,13 @@ export class AppRoot extends BaseComponent {
       this.#tutorial.mount(document.body);
     }
     this.#tutorial.start();
+    this.#coachNotifications.mount(document.body);
   }
 
   #refreshRoster(roster, club) {
     roster.innerHTML = '';
     const players = this.#rosterProvider.buildRosterForClub(club.name);
-    players.forEach((player) => new PlayerCard(player, this.#assetResolver).mount(roster));
+    players.forEach((player) => new PlayerCard(player, this.#assetResolver, (playerId) => this.#hintTracker.record(playerId)).mount(roster));
     const progress = this.element.querySelector('.guess-progress');
     if (progress) progress.textContent = this.#buildGuessProgressLabel();
   }
@@ -97,6 +102,14 @@ export class AppRoot extends BaseComponent {
     this.#feedbackTimer = window.setTimeout(() => {
       feedback.classList.remove('show', 'correct', 'incorrect');
     }, 1600);
+  }
+
+  #notifyHintsThreshold() {
+    this.#coachNotifications.showOnce('hints-10', {
+      avatarSrc: this.#assetResolver.buildPath('razin.png'),
+      name: 'Андрей Разин',
+      message: 'Подсказка не должна\nрожать ответ за тебя.\nОна должна только помочь.'
+    });
   }
 
   #reorderCompletedClubs() {

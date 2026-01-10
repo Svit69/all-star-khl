@@ -1,13 +1,15 @@
 ﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class PlayerNationLine extends BaseComponent {
-  #nation; #flagSrc; #isGuessed; #hintRevealed = false; #assetResolver;
-  constructor(nation, flagSrc, isGuessed = false, assetResolver) {
+  #nation; #flagSrc; #isGuessed; #hintRevealed = false; #assetResolver; #playerId; #onHintUsed;
+  constructor(nation, flagSrc, isGuessed = false, assetResolver, playerId = null, onHintUsed = null) {
     super('span');
-    this.#nation = nation || '—';
+    this.#nation = nation || '-';
     this.#flagSrc = flagSrc || '';
     this.#isGuessed = Boolean(isGuessed);
     this.#assetResolver = assetResolver;
+    this.#playerId = playerId;
+    this.#onHintUsed = onHintUsed;
   }
   compose() {
     this.element.className = 'player-detail-line';
@@ -26,6 +28,7 @@ export class PlayerNationLine extends BaseComponent {
     label.textContent = 'СТРАНА';
     const hint = this.#buildHintButton(() => {
       this.#hintRevealed = true;
+      if (this.#onHintUsed) this.#onHintUsed(this.#playerId);
       this.compose();
     });
     this.element.append(label, hint);

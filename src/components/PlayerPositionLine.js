@@ -1,11 +1,13 @@
 ﻿import { BaseComponent } from '../core/BaseComponent.js';
 
 export class PlayerPositionLine extends BaseComponent {
-  #position; #isGuessed; #hintRevealed = false;
-  constructor(position, isGuessed = false) {
+  #position; #isGuessed; #hintRevealed = false; #playerId; #onHintUsed;
+  constructor(position, isGuessed = false, playerId = null, onHintUsed = null) {
     super('span');
-    this.#position = position || '—';
+    this.#position = position || '-';
     this.#isGuessed = Boolean(isGuessed);
+    this.#playerId = playerId;
+    this.#onHintUsed = onHintUsed;
   }
   compose() {
     this.element.className = 'player-detail-line';
@@ -23,6 +25,7 @@ export class PlayerPositionLine extends BaseComponent {
     label.textContent = 'ПОЗИЦИЯ';
     const hint = this.#buildHintButton(() => {
       this.#hintRevealed = true;
+      if (this.#onHintUsed) this.#onHintUsed(this.#playerId);
       this.compose();
     });
     this.element.append(label, hint);

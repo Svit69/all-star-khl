@@ -5,12 +5,12 @@ import { PlayerAllStarLine } from './PlayerAllStarLine.js';
 
 export class PlayerMeta extends BaseComponent {
   #data;
-  constructor(fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver) {
+  constructor(playerId, fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver, onHintUsed) {
     super('div');
-    this.#data = { fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver };
+    this.#data = { playerId, fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver, onHintUsed };
   }
   compose() {
-    const { fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver } = this.#data;
+    const { playerId, fullName, position, nation, allstarTeam, nationFlagSrc, allstarTeamLogoSrc, isGuessed, assetResolver, onHintUsed } = this.#data;
     this.element.className = 'player-meta';
     this.element.innerHTML = '';
     const name = document.createElement('p');
@@ -19,9 +19,9 @@ export class PlayerMeta extends BaseComponent {
     const details = document.createElement('div');
     details.className = 'player-details';
     details.append(
-      new PlayerPositionLine(position, isGuessed).render(),
-      new PlayerNationLine(nation, nationFlagSrc, isGuessed, assetResolver).render(),
-      new PlayerAllStarLine(allstarTeam, allstarTeamLogoSrc, isGuessed, assetResolver).render()
+      new PlayerPositionLine(position, isGuessed, playerId, onHintUsed).render(),
+      new PlayerNationLine(nation, nationFlagSrc, isGuessed, assetResolver, playerId, onHintUsed).render(),
+      new PlayerAllStarLine(allstarTeam, allstarTeamLogoSrc, isGuessed, assetResolver, playerId, onHintUsed).render()
     );
     this.element.append(name, details);
   }
