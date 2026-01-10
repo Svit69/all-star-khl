@@ -19,10 +19,21 @@ body {
   overflow-x: hidden;
 }
 
+#app,
+#app-shell {
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
 #app {
   max-width: 480px;
   margin: 0 auto;
-  padding: 20px 18px 48px;
+  padding: 20px 16px 48px;
 }
 
 .header-logos {
