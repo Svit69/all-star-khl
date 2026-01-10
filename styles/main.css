@@ -70,14 +70,12 @@ body {
   color: #e6e6e6;
 }
 
-.pattern-grid {
-  width: 100%;
-  aspect-ratio: 3 / 3;
-  margin: 10px 0 12px;
+.pattern-area {
   background-image: url('../khl_all_star_pattern.svg');
   background-repeat: repeat;
   background-size: calc(100% / 3) calc(100% / 3);
-  background-position: center;
+  background-position: center top;
+  padding-bottom: 10px;
 }
 
 .search-panel {

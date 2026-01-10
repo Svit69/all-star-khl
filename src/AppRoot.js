@@ -33,13 +33,14 @@ export class AppRoot extends BaseComponent {
     const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
     const feedback = document.createElement('div');
     feedback.className = 'answer-feedback';
-    const pattern = document.createElement('div');
-    pattern.className = 'pattern-grid';
     const roster = document.createElement('div');
     roster.className = 'roster';
     this.#rosterNode = roster;
     const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
-    this.element.append(header, title, progress, search, suggestions, pattern, carousel, roster);
+    const patternArea = document.createElement('div');
+    patternArea.className = 'pattern-area';
+    patternArea.append(header, title, progress, search, suggestions, carousel);
+    this.element.append(patternArea, roster);
     document.body.appendChild(feedback);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
   }
