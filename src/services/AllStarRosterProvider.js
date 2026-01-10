@@ -152,6 +152,13 @@
     );
   }
 
+  isAllStarPlayer(khlPlayerId) {
+    const targetId = AllStarRosterProvider.#normalizeId(khlPlayerId);
+    return (this.participants || []).some(
+      (participant) => AllStarRosterProvider.#normalizeId(participant.khl_player_id) === targetId
+    );
+  }
+
   countGuessedParticipants() {
     return Object.keys(this.#guessedByAllStarId || {}).length;
   }

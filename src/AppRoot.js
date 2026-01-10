@@ -30,7 +30,7 @@ export class AppRoot extends BaseComponent {
     progress.textContent = this.#buildGuessProgressLabel();
     const suggestions = document.createElement('div');
     suggestions.className = 'search-suggestions';
-    const search = new SearchPanel('Найди игрока или клуб', (value) => this.#handleSearch(value, suggestions)).render();
+    const search = new SearchPanel('Нажмите и введите фамилию хоккеиста', (value) => this.#handleSearch(value, suggestions)).render();
     const feedback = document.createElement('div');
     feedback.className = 'answer-feedback';
     const roster = document.createElement('div');
@@ -65,8 +65,7 @@ export class AppRoot extends BaseComponent {
       item.type = 'button';
       item.textContent = match.displayName;
       item.addEventListener('click', () => {
-        const club = this.#controller.getActiveClub();
-        const isCorrect = this.#rosterProvider.isPlayerInClub(match.id, club.name);
+        const isCorrect = this.#rosterProvider.isAllStarPlayer(match.id);
         if (isCorrect) this.#rosterProvider.markGuessedByPlayerId(match.id);
         this.#showAnswerFeedback(isCorrect);
         if (this.#rosterNode) this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
