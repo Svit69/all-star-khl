@@ -25,4 +25,14 @@ export class ClubCarouselController {
   getClubs() {
     return this.#clubs;
   }
+
+  reorderByCompletion(completedNames = []) {
+    const completed = new Set(completedNames);
+    const active = this.getActiveClub();
+    const pending = this.#clubs.filter((club) => !completed.has(club.name));
+    const done = this.#clubs.filter((club) => completed.has(club.name));
+    this.#clubs = [...pending, ...done];
+    this.#activeIndex = this.#clubs.findIndex((club) => club.name === active.name);
+    if (this.#activeIndex < 0) this.#activeIndex = 0;
+  }
 }

@@ -168,6 +168,18 @@
     return (this.#participantsByClub[clubKey] || []).length;
   }
 
+  countGuessedByClub(clubName) {
+    const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
+    const participants = this.#participantsByClub[clubKey] || [];
+    return participants.filter((participant) => this.#guessedByAllStarId[participant.allstar_player_id]).length;
+  }
+
+  isClubComplete(clubName) {
+    const total = this.countParticipantsByClub(clubName);
+    if (total === 0) return false;
+    return this.countGuessedByClub(clubName) >= total;
+  }
+
   #composeFullName(player) {
     const first = player.first_name || 'Неизвестный';
     const last = player.last_name || 'Игрок';

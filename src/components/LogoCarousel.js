@@ -1,11 +1,12 @@
 import { BaseComponent } from '../core/BaseComponent.js';
 
 export class LogoCarousel extends BaseComponent {
-  constructor(controller, assetResolver, onChange = null) {
+  constructor(controller, assetResolver, onChange = null, isCompleted = null) {
     super('div');
     this.controller = controller;
     this.assetResolver = assetResolver;
     this.onChange = onChange;
+    this.isCompleted = isCompleted;
   }
 
   compose() {
@@ -28,6 +29,7 @@ export class LogoCarousel extends BaseComponent {
     item.className = 'carousel-item';
     item.type = 'button';
     item.title = club.name;
+    if (this.isCompleted) item.classList.toggle('completed', this.isCompleted(club));
     const logo = document.createElement('img');
     logo.src = this.assetResolver.buildPath(club.logo);
     logo.alt = club.name;

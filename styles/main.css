@@ -19,6 +19,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 #app,
 #app-shell {
   overflow-x: hidden;
@@ -33,6 +37,7 @@ svg {
 #app {
   max-width: 480px;
   margin: 0 auto;
+  width: 100%;
   padding: 20px 16px 48px;
 }
 
@@ -146,7 +151,8 @@ svg {
   pointer-events: none;
 }
 
-.search-panel:focus-within::after {
+.search-panel:focus-within::after,
+.search-panel.has-value::after {
   opacity: 0;
 }
 
@@ -186,6 +192,14 @@ svg {
 .carousel-item.active {
   opacity: 1;
   transform: translateY(-2px);
+}
+
+.carousel-item.completed {
+  opacity: 0.35;
+}
+
+.carousel-item.completed.active {
+  opacity: 0.7;
 }
 
 .carousel-item img {

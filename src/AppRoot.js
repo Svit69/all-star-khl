@@ -9,7 +9,7 @@ import { AssetPathResolver } from './services/AssetPathResolver.js';
 import { FuzzyPlayerSearch } from './services/FuzzyPlayerSearch.js';
 
 export class AppRoot extends BaseComponent {
-  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer;
+  #clubs; #assetResolver; #controller; #rosterProvider; #rosterNode; #feedbackTimer; #carouselHost;
 
   constructor(clubs, rosterProvider) {
     super('div');
@@ -36,10 +36,13 @@ export class AppRoot extends BaseComponent {
     const roster = document.createElement('div');
     roster.className = 'roster';
     this.#rosterNode = roster;
-    const carousel = new LogoCarousel(this.#controller, this.#assetResolver, (club) => this.#refreshRoster(roster, club)).render();
+    const carouselHost = document.createElement('div');
+    carouselHost.className = 'carousel-host';
+    this.#carouselHost = carouselHost;
+    this.#renderCarousel(carouselHost);
     const patternArea = document.createElement('div');
     patternArea.className = 'pattern-area';
-    patternArea.append(header, title, progress, search, suggestions, carousel);
+    patternArea.append(header, title, progress, search, suggestions, carouselHost);
     this.element.append(patternArea, roster);
     document.body.appendChild(feedback);
     this.#refreshRoster(roster, this.#controller.getActiveClub());
@@ -68,6 +71,7 @@ export class AppRoot extends BaseComponent {
         const isCorrect = this.#rosterProvider.isAllStarPlayer(match.id);
         if (isCorrect) this.#rosterProvider.markGuessedByPlayerId(match.id);
         this.#showAnswerFeedback(isCorrect);
+        this.#reorderCompletedClubs();
         if (this.#rosterNode) this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
         suggestionsNode.innerHTML = '';
       });
@@ -86,6 +90,22 @@ export class AppRoot extends BaseComponent {
     this.#feedbackTimer = window.setTimeout(() => {
       feedback.classList.remove('show', 'correct', 'incorrect');
     }, 1600);
+  }
+
+  #reorderCompletedClubs() {
+    const completed = this.#clubs.filter((club) => this.#rosterProvider.isClubComplete(club.name)).map((club) => club.name);
+    this.#controller.reorderByCompletion(completed);
+    if (this.#carouselHost) this.#renderCarousel(this.#carouselHost);
+  }
+
+  #renderCarousel(host) {
+    host.innerHTML = '';
+    new LogoCarousel(
+      this.#controller,
+      this.#assetResolver,
+      (club) => this.#refreshRoster(this.#rosterNode, club),
+      (club) => this.#rosterProvider.isClubComplete(club.name)
+    ).mount(host);
   }
 
   #buildGuessProgressLabel() {

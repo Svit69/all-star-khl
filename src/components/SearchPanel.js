@@ -18,6 +18,7 @@ export class SearchPanel extends BaseComponent {
     input.placeholder = this.#placeholderText;
     input.setAttribute('aria-label', 'Поле поиска игрока или клуба');
     input.addEventListener('input', (event) => {
+      this.element.classList.toggle('has-value', event.target.value.trim().length > 0);
       if (this.#onInput) this.#onInput(event.target.value);
     });
     this.element.appendChild(input);
