@@ -14,6 +14,7 @@ export class TutorialStepRunner {
     const step = this.#steps[index];
     const target = step.target ? document.querySelector(step.target) : null;
     const rect = resolveSpotlightRect(target);
+    this.#overlay.setDimOnly(Boolean(step.dimOnly));
     this.#overlay.setContent({
       title: step.title,
       body: step.body,

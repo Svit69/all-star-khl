@@ -337,6 +337,10 @@ svg {
   display: block;
 }
 
+.tutorial-overlay.dim-only {
+  background: rgba(0, 0, 0, 0.78);
+}
+
 .tutorial-spotlight {
   position: absolute;
   border-radius: 12px;

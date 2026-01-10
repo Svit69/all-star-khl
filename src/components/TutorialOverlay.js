@@ -45,6 +45,10 @@ export class TutorialOverlay extends BaseComponent {
     this.#tooltip.style.top = `${top}px`;
   }
 
+  setDimOnly(isDimOnly) {
+    this.element.classList.toggle('dim-only', isDimOnly);
+  }
+
   onNext(handler) {
     this.#next.onclick = handler;
   }
