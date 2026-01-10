@@ -150,11 +150,6 @@ svg {
   pointer-events: none;
 }
 
-.search-input:focus + .input-caret,
-.search-input:not(:placeholder-shown) + .input-caret {
-  opacity: 0;
-}
-
 @keyframes caretBlink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
