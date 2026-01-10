@@ -21,14 +21,22 @@ export class SearchPanel extends BaseComponent {
     caret.className = 'input-caret';
     caret.textContent = '|';
     const syncCaret = () => {
-      caret.style.opacity = input.value.trim().length ? '0' : '1';
+      const hasValue = input.value.trim().length > 0;
+      caret.style.opacity = hasValue ? '0' : '1';
+      caret.style.visibility = hasValue ? 'hidden' : 'visible';
+    };
+    const syncCaretAsync = () => {
+      window.setTimeout(syncCaret, 0);
     };
     input.addEventListener('input', (event) => {
-      syncCaret();
+      syncCaretAsync();
       if (this.#onInput) this.#onInput(event.target.value);
     });
-    input.addEventListener('focus', syncCaret);
-    input.addEventListener('blur', syncCaret);
+    input.addEventListener('focus', syncCaretAsync);
+    input.addEventListener('blur', syncCaretAsync);
+    input.addEventListener('keyup', syncCaretAsync);
+    input.addEventListener('change', syncCaretAsync);
+    input.addEventListener('compositionend', syncCaretAsync);
     syncCaret();
     this.element.appendChild(input);
     this.element.appendChild(caret);
