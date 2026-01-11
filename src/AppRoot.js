@@ -145,7 +145,7 @@ export class AppRoot extends BaseComponent {
     this.#coachNotifications.showOnce('guessed-all', {
       avatarSrc: this.#assetResolver.buildPath('zavarukhin.png'),
       name: 'Николай Заварухин',
-      message: 'Поздравляю! Ждем теб на Матче Звезд у нас в Екатеринбурге'
+      message: 'Поздравляю! Ждем тебя на Матче Звезд у нас в Екатеринбурге'
     });
   }
 
