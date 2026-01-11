@@ -84,7 +84,10 @@ export class AppRoot extends BaseComponent {
         const isCorrect = this.#rosterProvider.isAllStarPlayer(match.id);
         if (isCorrect) this.#rosterProvider.markGuessedByPlayerId(match.id);
         this.#showAnswerFeedback(isCorrect);
-        if (isCorrect) this.#notifyLegionersComplete();
+        if (isCorrect) {
+          this.#notifyGuessedTen();
+          this.#notifyLegionersComplete();
+        }
         this.#reorderCompletedClubs();
         if (this.#rosterNode) this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
         suggestionsNode.innerHTML = '';
@@ -123,11 +126,23 @@ export class AppRoot extends BaseComponent {
     });
   }
 
+  #notifyGuessedTen() {
+    const guessed = this.#rosterProvider.countGuessedParticipants ? this.#rosterProvider.countGuessedParticipants() : 0;
+    if (guessed < 10) return;
+    this.#coachNotifications.showOnce('guessed-10', {
+      avatarSrc: this.#assetResolver.buildPath('kvartalnov.png'),
+      name: 'Дмитрий Квартальнов',
+      message: 'Молодчик, хорошая работа! Идём дальше, без шиндр-мындра!'
+    });
+  }
+
   #preloadNotificationAssets() {
     const image = new Image();
     image.src = this.#assetResolver.buildPath('razin.png');
     const second = new Image();
     second.src = this.#assetResolver.buildPath('gallan.png');
+    const third = new Image();
+    third.src = this.#assetResolver.buildPath('kvartalnov.png');
   }
 
   #reorderCompletedClubs() {
