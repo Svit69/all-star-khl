@@ -84,6 +84,7 @@ export class AppRoot extends BaseComponent {
         const isCorrect = this.#rosterProvider.isAllStarPlayer(match.id);
         if (isCorrect) this.#rosterProvider.markGuessedByPlayerId(match.id);
         this.#showAnswerFeedback(isCorrect);
+        if (isCorrect) this.#notifyLegionersComplete();
         this.#reorderCompletedClubs();
         if (this.#rosterNode) this.#refreshRoster(this.#rosterNode, this.#controller.getActiveClub());
         suggestionsNode.innerHTML = '';
@@ -113,9 +114,20 @@ export class AppRoot extends BaseComponent {
     });
   }
 
+  #notifyLegionersComplete() {
+    if (!this.#rosterProvider.isAllStarTeamComplete('Легионеры')) return;
+    this.#coachNotifications.showOnce('legioners-complete', {
+      avatarSrc: this.#assetResolver.buildPath('gallan.png'),
+      name: 'Жерар Галлан',
+      message: 'No f*cking excuses.\nОтличная работа, е*бушки-воробушки!'
+    });
+  }
+
   #preloadNotificationAssets() {
     const image = new Image();
     image.src = this.#assetResolver.buildPath('razin.png');
+    const second = new Image();
+    second.src = this.#assetResolver.buildPath('gallan.png');
   }
 
   #reorderCompletedClubs() {

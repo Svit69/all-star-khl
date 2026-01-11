@@ -164,6 +164,28 @@
     return Object.keys(this.#guessedByAllStarId || {}).length;
   }
 
+  countParticipantsByAllStarTeam(teamName) {
+    const key = (teamName || '').toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    return (this.participants || []).filter((participant) => {
+      const name = (participant.allstar_team || '').toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+      return name === key;
+    }).length;
+  }
+
+  countGuessedByAllStarTeam(teamName) {
+    const key = (teamName || '').toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+    return (this.participants || []).filter((participant) => {
+      const name = (participant.allstar_team || '').toLowerCase().replace(/\s+/g, ' ').trim().replace(/ё/g, 'е');
+      return name === key && this.#guessedByAllStarId[participant.allstar_player_id];
+    }).length;
+  }
+
+  isAllStarTeamComplete(teamName) {
+    const total = this.countParticipantsByAllStarTeam(teamName);
+    if (total === 0) return false;
+    return this.countGuessedByAllStarTeam(teamName) >= total;
+  }
+
   countParticipantsByClub(clubName) {
     const clubKey = AllStarRosterProvider.#normalizeClub(clubName);
     return (this.#participantsByClub[clubKey] || []).length;
