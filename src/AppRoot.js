@@ -86,6 +86,7 @@ export class AppRoot extends BaseComponent {
         this.#showAnswerFeedback(isCorrect);
         if (isCorrect) {
           this.#notifyGuessedTen();
+          this.#notifyAllGuessed();
           this.#notifyLegionersComplete();
         }
         this.#reorderCompletedClubs();
@@ -136,6 +137,18 @@ export class AppRoot extends BaseComponent {
     });
   }
 
+  #notifyAllGuessed() {
+    const total = this.#rosterProvider.participants ? this.#rosterProvider.participants.length : 0;
+    if (!total) return;
+    const guessed = this.#rosterProvider.countGuessedParticipants ? this.#rosterProvider.countGuessedParticipants() : 0;
+    if (guessed < total) return;
+    this.#coachNotifications.showOnce('guessed-all', {
+      avatarSrc: this.#assetResolver.buildPath('zavarukhin.png'),
+      name: 'Николай Заварухин',
+      message: 'Поздравляю! Ждем теб на Матче Звезд у нас в Екатеринбурге'
+    });
+  }
+
   #preloadNotificationAssets() {
     const image = new Image();
     image.src = this.#assetResolver.buildPath('razin.png');
@@ -143,6 +156,8 @@ export class AppRoot extends BaseComponent {
     second.src = this.#assetResolver.buildPath('gallan.png');
     const third = new Image();
     third.src = this.#assetResolver.buildPath('kvartalnov.png');
+    const fourth = new Image();
+    fourth.src = this.#assetResolver.buildPath('zavarukhin.png');
   }
 
   #reorderCompletedClubs() {
