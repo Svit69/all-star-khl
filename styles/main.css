@@ -19,6 +19,11 @@ body {
   overflow-x: hidden;
 }
 
+body.tutorial-lock {
+  overflow: hidden;
+  touch-action: none;
+}
+
 html {
   overflow-x: hidden;
 }
